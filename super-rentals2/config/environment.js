@@ -42,6 +42,8 @@ module.exports = function (environment) {
 
   if (environment === 'production') {
     // here you can enable a production-specific feature
+    ENV.rootURL = '/ember-tutorial/';
+  ENV.locationType = 'hash';
   }
 
   ENV.TOMTOM_ACCESS_TOKEN = 'JJBJQjIh6uBcdvTKLlNBnhOkvgxqNdru';

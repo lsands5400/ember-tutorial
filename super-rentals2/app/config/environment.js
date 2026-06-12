@@ -2,7 +2,6 @@ import loadConfigFromMeta from '@embroider/config-meta-loader';
 import { assert } from '@ember/debug';
 
 const config = loadConfigFromMeta('super-rentals2');
-const rootURL = 'ember-tutorial'
 
 assert(
   'config is not an object',
