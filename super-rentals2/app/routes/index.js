@@ -1,8 +1,8 @@
 import Route from '@ember/routing/route';
 import { getWebInstrumentations, initializeFaro } from '@grafana/faro-web-sdk';
 import { TracingInstrumentation } from '@grafana/faro-web-tracing';
-
-const COMMUNITY_CATEGORIES = ['Condo', 'Townhouse', 'Apartment'];
+import { service } from '@ember/service';
+import { query } from '@warp-drive/utilities/json-api';
 
 initializeFaro({
   url: 'https://faro-collector-prod-us-east-0.grafana.net/collect/6210d0df72827d03363f82869d192a7e',
@@ -22,21 +22,11 @@ initializeFaro({
 });
 
 export default class IndexRoute extends Route {
+  @service store;
+
   async model() {
-    let response = await fetch('api/rentals.json');
-    let { data } = await response.json();
-
-    return data.map((model) => {
-      let { id, attributes } = model;
-      let type;
-
-      if (COMMUNITY_CATEGORIES.includes(attributes.category)) {
-        type = 'Community';
-      } else {
-        type = 'Standalone';
-      }
-
-      return { id, type, ...attributes };
-    });
+    const { content } = await this.store.request(query('rental'));
+    return content.data;
   }
 }
+

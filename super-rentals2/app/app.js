@@ -25,3 +25,9 @@ export default class App extends Application {
 }
 
 loadInitializers(App, config.modulePrefix, compatModules, initializeFaro);
+
+import { setBuildURLConfig } from '@warp-drive/utilities/json-api';
+
+setBuildURLConfig({
+  namespace: 'api',
+});
